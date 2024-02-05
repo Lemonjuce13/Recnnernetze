@@ -1,0 +1,307 @@
+Q: Lokales Netz bzw. LAN. 
+A: Realisiert einen direkten, physikalischen Datentransport zwischen Netzinterfaces und stellt Zugriffsverfahren bereit.
+
+Q: MAC-Layer
+A: Sublayer der Data-Link-Layer. Stellt Medienzugriffsverfahren bereit um Kommunikation in verschiedenen Netztopologien zu ermöglichen. | Fügt physikalische MAC-Adresse zur eindeutigen Adressierung von Interfaces hinzu.
+
+Q: Medienzugriffsverfahren
+A: Regelt Zugriff auf ein gemeinsames Übertragungsmedium. z.B. Tokenpassing in Ring/Stern/Bustopologien oder CSMA/CD.
+
+Q: ARP + Funktionsweise
+A: Das Adress Resolution Protocol löst L3 Adresse in eine L2 Adresse auf: ARP-Request per L2 Broadcast, ARP-Reply per L2-Unicast an Anfragenden (+Speichern der Zuordnung im ARP-Cache)
+
+Q: ARP-Cache
+A: Zwischenspeicher von L3/L2 Adress-Mappings die zurvor durch ARP aufgelöst wurden.
+
+Q: 10Base-T
+A: 10 Mbit/s Ethernet über (ein 2-paariges) Twisted-Pair Kabel
+
+Q: Vorteile 10BaseT Hub-System mit zwei PCs im Vergleich zu 10Base2 oder 10Base5
+A: Pro: störungsunanfällig, nur ein Single-Point-of-Failure (nicht mehrere)
+
+Q: CSMA/CD | CSMA/CA
+A: Carrier Sense Multiple Access / Collosion Detection/Avoidance. Zugriffsverfahren bei dem Kollisionen erkannt (CD) und/oder vermieden (CA) werden. CA nur in W-LANs
+
+Q: Twisted-Pair vs Koaxial + Skizze + Vorteile
+A: TP-Kabel hat mehrere Adern. Jeweils zwei Adern zu Paaren verdrillt wobei auf einer das Signal invertiert wird um Störungen zu filtern (Differenzübertragung). (Vorteil). Meist vier Paare ermöglichen Kommunikation in beide Richtungen simultan. (Full-Duplex) https://github.com/heftiqk/Rechnernetze/blob/main/img/twistedPair.jpg
+
+Q: Full-Duplex + Voraussetzung + Vorteile
+A: Durch separate Kanäle senden/empfangen in beide Richtungen zeitgleich. Keine Kollisionserkennung erforderlich daher schneller. Maximale Bus-Länge nicht relevant. Voraussetzung: Direktverbindung von genau zwei Netzwerkinterfaces mit getrennten Leitungswegen je Richtung (z.B. mit TP-Kabel OHNE Hub)
+
+Q: Switch + Vorteile gegenüber Hub
+A: Verbindet Netzwerkteilnehmer auf L2 unter Auftrennung der Kollisionsdomänen. *Kann* gezielt Datenpakete an einzelne Netzwerkteilnehmer schicken (L2 Unicast), anstatt nur als Broadcast, wie beim Hub
+
+Q: Forwarding Database Funktionsweise + Skizze
+A: Switch speichert welche MAC-Adresse an welchem Port angeschlossen ist. Befinden sich an einem Port mehrere Geräte (z.B. ein weiterer Switch), werden alle MAC-Adressen für den Port gespeichert. https://github.com/heftiqk/Rechnernetze/blob/main/img/fdb.png
+
+Q: Woher stammen die Einträge in der FDB und wer löscht diese wieder?
+A: Source MAC Adresse von eingehenden MAC-Frames. Gelöscht werden sie nach Ablauf eines Timers automatisch. 
+
+Q: Warum verbessert Layer-2 Switching Technologie die IT-Sicherheit?
+A: Stellt sicher dass Paket ausschließlich beim vorgesehenen Empfänger ankommt, da Switch (wenn möglich) per Unicast weiterleitet.
+
+Q: TCP Wesentliche Eigenschaften und Verwendungszweck
+A: Das Transmission Control Protocol dient der bidirektionalen, gesicherten Übertragung von Datenströmen. Eigenschaften: Übertragungssicherheit durch positivem Quittungsbeleg, Verbindung muss auf- und abgebaut werden, daher nur zwischen genau zwei TCP-Sockets möglich, kein Broadcast/Multicast.
+
+Q: UDP Wesentliche Eigenschaften und Verwendungszweck
+A: User Datagram Protocol - verbindungslose, ungesicherte Datenübertragung von "Nachrichten". Erlaubt Multicast/Broadcast Übertragung.
+
+Q: Flags TCP Header (nenne + beschreibe 3)
+A: URG (urgent - dieses Paket vor anderen verarbeiten), ACK (Acknowledge - bestätigung, dass paket angekommen/ annehmen der Verbindung), PSH (push - dieses Paket nicht buffern, sondern gleich verarbeiten), RST(reset - Verbindung abbrubt abbrechen), SYN (synchronize - synchronisieren der Sequenznummer), FIN (finish - beenden der Verbindung)
+
+Q: TCP Funktionsweise
+A: bidirektionaler Datenstrom, gesicherte Ende-zu-Ende Übertragung durch positiven Quittungsbetrieb mit Sequenznummernzählern
+
+Q: TCP Auf-/Abbau
+A: https://github.com/heftiqk/Rechnernetze/blob/main/img/THREEWayHandshake.png
+
+Q: UDP Funktionsweise
+A: verbindungslose und ungesicherte Datenübertragung für Anwendungsprozesse über Sockets, rein nachrichtenorientiert
+
+Q: Socket + Socket-Adresse + Socket-Schnittstelle
+A: Socket: Kommunikationsendpunkt (für platformübergreifende IPC) | Socket Schnittstelle: Programmierschnittstelle für Socket-Kommunikation. | Socket-Adresse: Eindeutige Identifikation eines Sockets durch IP-Adresse und Portnummer.
+
+Q: Ports und warum diese erforderlich sind
+A: Ports ermöglichen die Kommunikation von bestimmten Anwendungen, im Gegensatz nur von bestimmten Geräten. Die Adresse setzt sich dabei aus der IP-Adresse des Gerätes + ":'Port-Nummer'" zusammen. 
+
+Q: Arten von Ports und deren Bereiche + wer vergibt diese
+A: Well-known ports: 0 - 1023 (für System Prozesse [vorgegeben von IANA]); Registered ports: 1024 - 49151 (reservierbar von Firmen, etc); Dynamic/ private ports: 49152 - 65535 (für private/ anpassbare ports)
+
+Q: IP-Multicasting vs Broadcast (warum vorzuziehen)
+A: Beim Multicasting werden eine vorbestimmte Gruppe von IP-Adressen angesendet, wobei beim Broadcast JEDER im System. Dies macht Multicasting wesentlich sicherer gegenüber "Eindringlingen"
+
+Q: IP-Adressklassen + Beispiele
+A: Klassen: A: 0XXX..., B: 10XX..., C:110C..., D: 1110...
+
+// IGMP ist kein *Transportprotokoll* !
+Q: Welche Transportprotokolle können IP-Multicasting nutzen + warum?
+A: Nur UDP, da es verbindungslos ist
+
+Q: Wie kann die Reichweite einer Multicastübertragung gesteuert werden
+A: über das TTL Feld (Time to live), PIM (protocol independent multicast) oder IGMP (internet group management protocol)
+
+Q: Struktureller Aufbau eines IPv4-Paketes welches TELNET-Anwendungsdaten transportiert
+A: 20 byte IPv4 Header + 20 byte TCP Header + Anwendungsdaten
+
+Q: Mit welchem Dienstprogramm kann man prüfen ob auf dem eigenen System ein TELNET-Server auf Daten wartet?
+A: netcat
+
+Q: DNS Erläutern + Aufgabe
+A: Domain Name System - Ein hierarchisch unterteiltes Bezeichnungssystem für IP-basiertes Netz, um IP-Adressen bestimmten Domain-Namen zuordnen zu können
+
+Q: Domäne
+A: hierarchisch organisierter Namensraum, der Computern und Diensten eindeutige Namen zuteilt
+
+Q: Resource Records Erklärung + Wie gespeichert
+A: Einträge in DNS Datenbank, die Infos über Ressourcen in einem Netzwerk enthalten
+
+Q: Resource Records Welche gibt es?
+A: AAAA (ipv6), A (ipv4), CNAME (Alias), MX (Mail exchange), NS (name server), TXT (Text), SoA (Start of Authority), PTR (Pointer)
+
+Q: FQDN
+A: Der Fully Qualified Domain Name ist ein global eindeutiger Name aus hostname.domäne
+
+Q: DNS Funktionsweise + Skizze
+A: DNS-Server verwaltet die RR von seiner EIGENEN Domain/Zone, merkt sich für untergeordnete Zonen den Name-/ DNS-Server zum weiterleiten, https://github.com/heftiqk/Rechnernetze/blob/main/img/DNSAbfrageBSP
+
+Q: saturn.de führt zum gleichen Zeil wie www.saturn.de. Wie geht das einfach?
+A: Implizite Zuordnung einer IP-Adresse zur Zone mittels @ Eintrag in zuständiger Forward-Zonendatei.
+
+Q: DNS PTR-Query
+A: "Rückwärtsauflösung" von IP-Adresse zu Hostnamen durch Verweis auf den "zuständigen" DNS-Server.
+
+Q: hosts-Datei Funktion + Gefahr
+A: "lokaler DNS" - lokale Datei, die als einfacher DNS dient, um typischer Weise lokalhost aufzulösen. Wenn diese von Außen verändert werden kann, könnten sichere Abfragen auf unsichere Websiten, etc. weitergeleitet werden
+
+Q: ping dienstprogramm Funktionsweise
+A: Sendet ICMP-Echo-Request und misst die Zeit bis ein Echo-Reply eintrifft. Erlaubt es zu prüfen ob eine Verbindung möglich ist.
+
+Q: Könnte man mit dem ping-Programm prüfen, ob auf einem entfernten System ein http-Serverdienst erreichbar ist?
+A: Nein, da ping nicht über TCP kommuniziert. Prüft nur ob das Gerät erreichbar ist.
+
+Q: Ping-Datenpakete über TCP oder UDP
+A: Weder noch. ping kommuniziert über ICMP
+
+Q: SSH
+A: Secure SHell - verschlüsselte Zeichenweise Ein- und Ausgabe zwischen Terminalprozessen.
+
+Q: SSH vs TELNET
+A: Vorteile: Daten verschlüsselt, Authentifizierungmethoden, Schutz vor veränderung der Daten (Integrität) Nachteile: Nicht auf jedem System vorhanden (TELNET schon)
+
+Q: SSH zusätzliche Features
+A: Port-Forwarding | SCP (Secure-Copy) um Dateien verschlüsselt auf ein anderes System zu kopieren. | SFTP: FTP-ähnliches Protokoll um Dateien remote zu verwalten.
+
+Q: SSH Funktionsweise + Skizze
+A: 1. TCP Verbindungsaufbau 2. Schlüsselaustausch über asymmetrisches Verfahren 3. Authentifizierung 4. Datenaustausch
+
+Q: Welche zwei Verschlüsselungstechniken kommen zum Einsatz + warum? + jeweils ein beispielhaftes kryptografisches Verfahren
+A: Symmetrische Verschlüsselung dient dem eigentlichen Datenaustausch z.B. AES | Asymmetrische Verschlüsselung dient dem Schlüsselaustausch für symmetrische Verschlüsselung z.B. RSA
+
+Q: Fingerprint
+A: Aus der Nachricht generierter Hash-Wert mit dem die Nachricht auf korrektheit geprüft werden kann.
+
+Q: Digitale Signatur
+A: Kryptografisch generierter Wert mit dem der Absender authentifiziert werden kann.
+
+Q: OSI-Schichten Deutsch
+A: Anwendung, Darstellung, Kommunikation, Transport, Vermittlung, Sicherung, Bitübertragung | Eselsbrücke: Alle dicken Kommunisten trinken viel Schnaps Bitch
+
+Q: OSI-Layers English
+A: Application, Presentation, Session, Transport, Network, Data-Link, Physical | Eselsbrücke: All pirate ships take no darn prisoners
+
+Q: Welche Schichten umfasst die LAN-Technik
+A: Physical- (L1) und Data-Link-Layer (L2)
+
+Q: Arbeitet der MAC-Layer einheitlich
+A: Nein, unterschiedliche 802 LAN Technologien nutzen unterschiedliche Verfahren (z.B. 802.3 (Ethernet) -> CSMA/CD, 802.11 (WLAN) CSMA/CA)
+
+Q: Vor & Nachteile Netzarchitekturen
+A: 
+
+Q: Wann treten Kollisionen auf und wie werden diese durch CSMA/CD verhindert
+A: Wenn zwei Geräte zeitgleich senden. CSMA/CD erkennt Kollision. Sendet Jam-Signal aus. Alle sendenden Geräte warten für zufällige Back-off-time bevor sie erneut senden. (stochastisches Zugriffsverfahren)
+
+Q: Skizzensymbole für Koppelelemente
+A: https://github.com/heftiqk/Rechnernetze/blob/main/img/koppelelemente.png
+
+Q: Aufbau von IPv4- und MAC-Adressen
+A: IPv4: 32 Bit z.B. 192.168.178.1 | MAC: 6 Byte z.B. ac:8e:48:f0:41:45
+
+Q: Wie stellt ein Switch sicher, dass nur korrekte MAC-Frames übertragen werden?
+A: Anhand der Frame-Check-Sequence im MAC-Header. (z.B. als Prüfsumme)
+
+Q: Cut-Through / Store and Forward + Vor / Nachteile
+A: S&F: Switch speichert gesamtes Paket bevor es weitergeleitet wird. Pro: Prüfung auf Korrektheit -> sicher, unterschiedliche Geschwindigkeiten an eingang und ausgang möglich. Contra: langsam | CT: Weiterleiten sobald MAC Adresse ermittelt. Pro: schneller Contra: keine prüfung und gleiche Geschwindigkeit erforderlich.
+
+Q: Aufgaben der einzelnen OSI Schichten und Äquivalenzen zum Internet-Architekturmodell
+A: https://github.com/heftiqk/Rechnernetze/blob/main/img/osiSchichtenModell.png
+
+// https://github.com/Lemonjuce13/Rechnernetze/blob/main/img/internetArchitekturModell.png
+Q: Internet-Architekturmodell
+A: https://github.com/heftiqk/Rechnernetze/blob/main/img/internetArchitekturModell.png
+
+Q: Wozu dient eine IP-Adresse?
+A: Dient der logischen Adressierung von Interfaces und Netzen (in IP-basiertem Netz)
+
+Q: SMTP Aufgabe + Eigenschaften
+A: Kommunikation zwischen 2 SMTP Servern, Abruf von Nachrichten per POP3/ IMAPv4, Nachrichtentransport unverschlüsselt per TCP via well-known Port 25/TCP
+
+Q: Funktionsweise SMTP + Skizze
+A: Client schickt an seinen SMTP-Server, der schickt weiter an Empfänger SMTP, wo Empfänger Nachricht vom MDA bekommt, dass abrufbar? https://github.com/heftiqk/Rechnernetze/blob/main/img/SMTP_Funktionsweise.png
+
+Q: Struktur einer E-Mail
+A: https://github.com/heftiqk/Rechnernetze/blob/main/img/email_aufbau_smtp.png
+
+Q: Wie können beliebige Arten von Informationen per SMTP übertragen werden?
+A: Multipurpose Internet Mail Extensions (MIME)
+
+Q: Skizze Aufbau eines IPv4 Paketes welches SMTP-Daten transportiert
+A: IPv4 Header + TCP Header + SMTP
+
+Q: TTL Feld
+A: Time to live Feld. Wird von jeder Zwischenstation (Router Hop) auf der route um 1 reduziert. Paket wird verworfen wenn es 0 erreicht
+
+Q: wozu dient das Dienstprogramm netstat
+A: zeigt von Prozessen u.a. deren Socket-Verbindungen, Zustände und dabei genutzte Adressen (IP#:Port) an.
+
+Q: Mit welchem Befehl kann man prüfen welche Prozesse auf UDP-Pakete warten?
+A: netstat -a -o -p udp | -a : all : Ale Verbindungen (aktiv, waratend), -o : owning process : zeigt Process ID (PID) zur Verbindung an, -p udp : protocol : filtert nach nur UDP Verbindungen
+
+Q: Mit welchem Dienstprogramm kann man prüfen, ob auf einem entfernten Sytem ein SMTP-Serverdienst läuft?
+A: telnet oder netcat
+
+Q: Wozu dient beim SMTP das Base64-Verfahren?
+A: Nachrichtenelemente können mit MIME zsätzlich codiert werden, hier wird das Base64-Verfahren genutzt
+
+Q: Greylisting Aufgabe + Funktionsweise + Nachteile
+A: Anti Spam - Bei Emails von unbekannten Sendern, werden diese zunächst abgewiesen und auf die "Grey List" gepackt, bei erneutem Senden, werden diese dann gewhitelistet. -> Viele Spam Dienste, haben kein Interesse, mehrmals zu schicken, sondern versuchen es einmal im Bulk und hoffen, dass irgendwas ankommt. Problem ist nur, dass auch völlig seriöse Dienste so erstmal abgewiesen werden.
+
+Q: Dienstprogramm für DNS-Abfragen
+A: nslookup
+
+Q: TELNET Aufgabe + Eigenschaften
+A: Unverschlüsselte zeichenweise Ein- & Ausgabe zwischen Terminalorientierten Prozessen | Verwendet TCP | Plattformübergreifend
+
+
+Q: TELNET Funktionsweise + Skizze
+A: 
+
+Q: Network Virtual Terminal
+A: Virtuelle Terminalumgebung welches die (textbasierte) Kommunikation zwischen zwei Systemen über Netwerkprotokolle koordiniert.
+
+Q: Aufbau MAC-Frame
+A: https://github.com/heftiqk/Rechnernetze/blob/main/img/mac_frame
+
+// Eine Anzahl kann nicht negativ sein, speichert ob die Anzahl gerade oder ungerade ist.
+Q: Parity-Verfahren
+A: Kann Fehler in Datenübertragungen erkennen. Ein Bit speichert ob die Anzahl der 1en im Bitstrom positiv oder negativ ist.
+
+//Reicht das aus als Erklärung? Gefunden auf Folie 9 Kapitel 4.1
+Q: wieso können in LANs auf dem gleichen Kabel unterschiedliche Netzwerkprotokolle (IPv4, IPv6,...) ihre Pakete austauschen?
+A: Protokolladresse der LLC-Layer ermöglicht das.
+
+Q: Basisband / Breitband
+A: Basisband - gesamter Frequenzbereich genutzt, erlaubt höhere Datenraten (evt auch Full-Duplex), Breitband mehrere gleichzeitig (nebeneinander) FM/AM (-> Frequency- / Amplitude Modulation)
+
+// Nicht sicher ob das richtig ist.
+Q: Welchen theoretischen Gesamtdurchsatz (Mbit/s) kann ein 8-Port Ethernet-Hub (Repeater) bzw. ein neuerer 8 Port Ethernet-Switch zu einem Zeitpunkt jeweils maximal liefern, wenn jeweils das 10Base-T genutzt wird (mit Begründung)?
+A: Repeater = Max 10 Mbit/s, da logische Bus-Struktur -> eine Kollisionsdomäne. Switch mit eigener Kollisiondomäne pro Port -> 8 Ports * 10 Mbit/s  = 80 Mbit/s
+
+Q: POP3 
+A: Post Office Protocol Version 3 - Abruf von Email Nachrichten - unkodiert, mittels Klatextübertragung 
+
+Q: IMAP4
+A: Internet Message Access Protocol - Version 4rev1 - Abruf und Verwaltung von Nachrichten in einzelnen Mailboxen direkt auf einem IMAP4-Server
+
+Q: POP3 vs IMAP4
+A: beide für den Polling–Betrieb konzipiert. POP3 *NUR* Abruf, IMAP4 kann auch Mails auf dem Server verwalten. Heute auch Push-Mail-Betrieb mit IMAP4 möglich.
+
+Q: LLC-Layer
+A: Sublayer der Data-Link-Layer (L2). Realisiert eindeutige Schnittstelle (Service Access Point) zur Unabhängigkeit der Netzwerkprotokolle von MAC-Zugriffsverfahren | Fügt Protokolladresse hinzu.
+
+//https://github.com/Lemonjuce13/Rechnernetze/blob/main/img/UnicastMulticastBroadcast.png
+Q: Unicast vs Broadcast vs Multicast (siehe WS15 A. 2b)
+A: Unicast - 1:1 Beziehung 1 Sender 1 Empfänger, Broadcast 1:N Beziehung 1 Sender an alle Mitglieder in (Teil-)Netz, Multicast 1:M-of-N Beziehung 1 Sender an mehrere Empfänger in (Teil-)Netz per Hostgroup Address | https://github.com/heftiqk/Rechnernetze/blob/main/img/UnicastMulticastBroadcast.png
+
+Q: SMTP: unbefugten Versand beschränken Mehrere Möglichkeiten
+A: SPF (Sender Policy Framework) + SPAM-Listen/Blacklisting + Greylisting
+
+Q: Push-Mail-Dienst + Mit welchem Protokoll kann diese Architektur herstellerneutral realisiert werden?
+A: Der MDA (Mail Delivery Agent, Server) informiert den MUA (Mail User Agent, Client) PROAKTIV über neue Emails. Prokoll: IMAP4 mit IDLE Command
+
+Q: Wann wird in einem Switch auch ein korrektes MAC-Frame nicht weitergeleitet?
+A: Ziel-MAC ist laut FDB über den Port erreichbar, an dem das Paket eingegangen ist. (Switch sendet nie ein Paket am Eingangsport wieder aus)
+
+Q: TP-Kabel Differenzverfahren
+A: Beim TP-Kabel gehören immer ein Adern PAAR zu einer Übertragung. Auf dem Einen wird das Signal invertiert geschickt und beim Empfänger zurück invertiert, um durch Störungen entstandene Wellen auszulöschen
+
+Q: Drei Vorteile Full-Duplex-Betrieb
+A: Keine max. Bus-Länge. Bis zu doppelte Bandbreite (Senden+Empfangen zusammen). KEINE KOLLISIONEN, damit auch keine Zeitverzögerung durch CSMA/CD Back-Off Timer.
+
+Q: private IPv4 Adressen + wozu gibt es sie? + wie erkennt man sie? + Einschränkungen in ihrer Nutzung
+A: 10.0.0.0, 172.16.0.0-172.31.255.255, 192.168.0.0-192.168.255.255; sind nur zur privaten Nutzung in einem Netzwerk -> nicht global routebar. Gibt es da Ipv4-Adressbereich sehrausgelastet, oft mehr Netze benötigt als IP-Adressen zur Verfügung
+
+Q: Three-way Handshake + Anwendung + Funktionsweise mit Skizze + Wie viele Datenpakete dafür notwendig?
+A: Aufbauen einer TCP-Verbindung durch 3 Pakete zum Synchronisieren der ISN. A sendet SYN(ISN=A). B antwortet SYN(ISN=B)+ACK(ISN=A+1). A antwortet ACK(ISN=B+1)
+
+Q: DNS Zone + Erkläarung + Wann ist diese die gleiche wie die Domäne?
+A: Umfasst alle durch einen DNS-Server verwalteten RRs (Resoruce Records). Gleich wie Domäne wenn DNS-Server komplette Domäne verwaltet, d.h. keine Subdomains.
+
+Q: Subnet-Directed-Broadcast
+A: Broadcast, der ausschließlich in ein bestimmtes Teilnetz geschickt wird, somit jeden in diesem Netz anspricht. Alle Host-Bits = 1
+
+Q: SMTP Statuscodes
+A: SMTP-Server liefert 3-stellige, numerische Reply- bzw. Status-Codes zurück.
+
+Q: Kollisionsdomäne
+A: Gemeinsames Übertragungsmedium/Netzsegment in dem Kollisionen zwischen Datenpaketen auftreten können, (wenn gleichzeitig gesendet wird).
+
+Q: NAT vs PAT + Erklärung
+A: NAT: Network Address Translation : Übersetzt private Adressen in EINE öffentliche Adresse zur Kommunikation nach außen. PAT : Port Address Translation : Spezielle Form des dynamischen NATs, übersetzt auch Port, erlaubt Internetzugrif mehrerer Geräte im privaten Netz über selbe öffentliche IP-Adresse druch Verwendung verschiederner Ports
+
+Q: STARTTLS
+A: „TLS“ fungiert als Sicherungsschicht beim Datenaustausch zwischen zwei Prozessen, Start bei SMTP per STARTTLS
+
+// Kann ich nicht beantworten.
+Q: Ist es möglich diese Klausur zu schreiben ohne eine Psychose zu entwickeln? Wenn ja, wie?
+A: 
