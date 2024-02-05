@@ -17,3 +17,9 @@ Wenn ihr das Repo erweitern/updaten wollt würde ich mich sehr über Zusammenarb
 Schreibt mir gerne einfach oder schickt direkt ein Request :)
 
 Sprechende Commit messages und Dateinamen sind erwünscht.
+
+Dieses Repo ist eine neue, cleane Version einer Kooperation.\
+Dankt den anderen Creatorn hier:
+- [heftiqk](https://github.com/heftiqk)
+- [JonathanPultz](https://github.com/JonathanPultz)
+- [antiz](https://github.com/antiz)
